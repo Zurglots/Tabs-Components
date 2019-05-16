@@ -7,12 +7,15 @@ class TabLink {
     this.data = this.element.dataset.tab;
 
     // Using the custom data attribute get the associated Item element
-    this.itemElement = this.element.querySelector(
-      `.data[data-tab='${this.element.dataset.tab}']`
+    this.itemElement = document.querySelector(
+      `.tabs-item[data-tab="${this.data}"]`
     );
+    // `.data[data-tab='${this.element.dataset.tab}']` would this replace line 6?
 
     // Using the Item element, create a new instance of the TabItem class
-    this.tabItem = new TabItem(this.tabItem);
+    this.tabItem = new TabItem(this.itemElement);
+    // console.log(this.itemElement);
+    // why isn't TabItem(this.tabItem) viable?
 
     // Add a click event listener on this instance, calling the select method on click
     this.element.addEventListener("click", () => this.select());
@@ -27,7 +30,6 @@ class TabLink {
     this.element.classList.toggle("tabs-link-selected");
     // Call the select method on the item associated with this link
     this.tabItem.select();
-    // what/when excatly is this doing/happening?
   }
 }
 
@@ -41,11 +43,10 @@ class TabItem {
     // Select all ".tabs-item" elements from the DOM
     const items = document.querySelectorAll(".tabs-item");
     // Remove the class "tabs-item-selected" from each element
-    items.forEach(tab => {
-      tab.classList.remove(".tabs-item-selected");
-    });
+    items.forEach(element => element.classList.remove("tabs-item-selected"));
     // Add a class named "tabs-item-selected" to this element
-    this.items.classList.toggle("tabs-item-selected");
+    console.log(this.element);
+    this.element.classList.toggle("tabs-item-selected");
   }
 }
 
